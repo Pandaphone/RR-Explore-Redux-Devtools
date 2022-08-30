@@ -6,14 +6,17 @@ function Todo() {
 
   const listItems = useSelector((state) => state.todo.toDoItems)
   const dispatch = useDispatch()
-  const [input, setInput] = useState("")
+  const [input, setInput] = useState('')
 
-  function addAtodo(e){
+
+  const renderList = listItems.map((item, index) => <li key={index} onClick={() => dispatch(removeTodo(index))}>{item}</li>)
+
+  const addAtodo = (e) => {
     e.preventDefault()
     dispatch(addToDo(input))
   }
 
-  const renderList = listItems.map((item, index) => <li key={index}>{item}</li>)
+  
 
   return (
     <div>
@@ -24,7 +27,7 @@ function Todo() {
     <ul>
     {renderList}
     </ul>
-    <button>Clear!</button>
+    <button onClick={() => dispatch(clearToDos())}>Clear!</button>
     </div>
   )
 }
