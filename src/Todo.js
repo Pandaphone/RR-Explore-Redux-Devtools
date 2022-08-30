@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { addTodo, removeTodo, clearToDos } from './features/todoSlice'
+import { addToDo, removeTodo, clearToDos } from './features/todoSlice'
 
 function Todo() {
 
-  function addAtodo(){
+  const listItems = useSelector((state) => state.todo.toDoItems)
+  const dispatch = useDispatch()
+  const [input, setInput] = useState("")
 
+  function addAtodo(e){
+    e.preventDefault()
+    dispatch(addToDo(input))
   }
 
-
-  function setInput(){}
+  const renderList = listItems.map((item, index) => <li key={index}>{item}</li>)
 
   return (
     <div>
@@ -18,7 +22,7 @@ function Todo() {
         <button type="submit">Submit</button>
     </form>
     <ul>
-
+    {renderList}
     </ul>
     <button>Clear!</button>
     </div>
